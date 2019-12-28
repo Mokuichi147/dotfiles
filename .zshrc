@@ -26,16 +26,16 @@ esac
 # host
 zsh_hostname=$(hostname|cut -f 1 -d '.')
 case $zsh_hostname in
-    MacBookKF*)
+    MacBookKF)
     zsh_color=197
     ;;
-    DESK-Pi*)
+    DESK-Pi)
     zsh_color=6
     ;;
-    REI-W*)
+    REI-W)
     zsh_color=23
     ;;
-    REI-WK*)
+    REI-WK)
     zsh_color=169
     ;;
     *)
