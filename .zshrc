@@ -8,7 +8,6 @@ alias ..='cd ..'
 alias py='python'
 alias hello='figlet Hello\ world!'
 alias zshrc='nano ~/.zshrc'
-alias zshrc.mine='nano ~/.zshrc.mine'
 alias f='find ~/.zsh_history -type f -print | xargs grep'
 alias g='find / -executable -type f -name'
 
