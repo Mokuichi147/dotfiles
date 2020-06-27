@@ -56,14 +56,14 @@ setopt correct
 
 # git branch
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '{%b}'
-zstyle ':vcs_info:*' actionformats '{%b|%a}'
+zstyle ':vcs_info:*' formats '[%b]'
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd() { vcs_info }
 setopt prompt_subst
 
 # prompt
-zsh_clock='%B%K{$zsh_color}%F{255}{%*}%f%k'
-zsh_dir='%K{208}%F{255}{%~}%f%k'
+zsh_clock='%B%F{$zsh_color}[%*]%f'
+zsh_dir='%F{208}[%~]%f'
 
-PROMPT='$zsh_clock%K{092}%F{255}${vcs_info_msg_0_}%f%k$zsh_dir
+PROMPT='$zsh_clock%F{092}${vcs_info_msg_0_}%f$zsh_dir
 %F{$zsh_color}>%f%b '
