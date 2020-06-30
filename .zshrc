@@ -23,6 +23,7 @@ case ${OSTYPE} in
 esac
 
 # host
+git_color=092
 zsh_hostname=$(hostname|cut -f 1 -d '.')
 case $zsh_hostname in
     MacBookKF)
@@ -36,6 +37,10 @@ case $zsh_hostname in
     ;;
     REI-WK)
     zsh_color=169
+    ;;
+    mokuichi147-desktop)
+    zsh_color=099
+    git_color=220
     ;;
     *)
     zsh_color=031
@@ -65,5 +70,5 @@ setopt prompt_subst
 zsh_clock='%B%F{$zsh_color}[%*]%f'
 zsh_dir='%F{208}[%~]%f'
 
-PROMPT='$zsh_clock%F{092}${vcs_info_msg_0_}%f$zsh_dir
+PROMPT='$zsh_clock%F{$git_color}${vcs_info_msg_0_}%f$zsh_dir
 %F{$zsh_color}>%f%b '
