@@ -3,6 +3,9 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # alias
 alias ..='cd ..'
 alias py='python'
@@ -26,8 +29,9 @@ esac
 git_color=092
 zsh_hostname=$(hostname|cut -f 1 -d '.')
 case $zsh_hostname in
-    MacBookKF)
+    Mokuichi147-MacBook)
     zsh_color=197
+    export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
     ;;
     DESK-Pi)
     zsh_color=6
