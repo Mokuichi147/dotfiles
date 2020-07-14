@@ -32,6 +32,7 @@ case $zsh_hostname in
     Mokuichi147-MacBook)
     zsh_color=197
     export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
+    export PATH="$HOME/.nodebrew/current/bin:$PATH"
     ;;
     DESK-Pi)
     zsh_color=6
