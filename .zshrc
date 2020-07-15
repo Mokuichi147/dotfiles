@@ -33,6 +33,7 @@ case $zsh_hostname in
     zsh_color=197
     export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
     export PATH="$HOME/.nodebrew/current/bin:$PATH"
+    alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
     ;;
     DESK-Pi)
     zsh_color=6
