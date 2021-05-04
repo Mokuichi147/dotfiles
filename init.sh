@@ -1,9 +1,12 @@
 #!/bin/sh
 
+# hostname
+printf "hostname:"
+read hostname
+hostnamectl set-hostname "$hostname"
+
 # zsh shell
-printf "password:"
-read password
-echo "$password" | sudo -S apt install -y zsh
+sudo -S apt install -y zsh
 
 chsh -s $(which zsh)
 
