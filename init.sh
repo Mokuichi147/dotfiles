@@ -3,10 +3,12 @@
 # hostname
 printf "hostname:"
 read hostname
-hostnamectl set-hostname "$hostname"
+printf "password:"
+read -s password
+echo "$password" | sudo -S hostnamectl set-hostname "$hostname"
 
 # zsh shell
-sudo -S apt install -y zsh
+echo "$password" | sudo -S apt install -y zsh
 
 chsh -s $(which zsh)
 
