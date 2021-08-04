@@ -71,16 +71,23 @@ setopt share_history
 setopt auto_cd
 setopt correct
 
+# chpwd
+function show_directory() {
+    ls -a
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd show_directory
+
 # git branch
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '[%b]'
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
+zstyle ':vcs_info:*' formats '%b, '
+zstyle ':vcs_info:*' actionformats '%b|%a, '
 precmd() { vcs_info }
 setopt prompt_subst
 
 # prompt
-zsh_clock='%B%F{$zsh_color}[%*]%f'
-zsh_dir='%F{$dir_color}[%~]%f'
+zsh_clock='%B%F{$zsh_color}%*, %f'
+zsh_dir='%F{$dir_color}%~%f'
 
 PROMPT='$zsh_clock%F{$git_color}${vcs_info_msg_0_}%f$zsh_dir
 %F{$zsh_color}>%f%b '
