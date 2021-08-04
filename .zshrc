@@ -1,7 +1,7 @@
 # Python
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -34,6 +34,9 @@ case $zsh_hostname in
     export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
     export PATH="$HOME/.nodebrew/current/bin:$PATH"
     alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
+    ;;
+    mokuichi147-thinkcentre)
+    zsh_color=147
     ;;
     DESK-Pi)
     zsh_color=6
