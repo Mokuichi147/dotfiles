@@ -26,17 +26,19 @@ case ${OSTYPE} in
 esac
 
 # host
-git_color=092
+git_color=69
+dir_color=147
 zsh_hostname=$(hostname|cut -f 1 -d '.')
 case $zsh_hostname in
     Mokuichi147-MacBook)
     zsh_color=197
+    git_color=092
     export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
     export PATH="$HOME/.nodebrew/current/bin:$PATH"
     alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
     ;;
     mokuichi147-thinkcentre)
-    zsh_color=147
+    zsh_color=30
     ;;
     DESK-Pi)
     zsh_color=6
@@ -47,13 +49,13 @@ case $zsh_hostname in
     REI-WK)
     zsh_color=169
     ;;
-    mokuichi147-desktop)
-    zsh_color=099
+    DESKTOP*)
+    zsh_color=99
     git_color=220
     export PATH="$HOME/Documents/swift-5.2.4-RELEASE-ubuntu20.04/usr/bin:$PATH"
     ;;
     *)
-    zsh_color=031
+    zsh_color=27
     ;;
 esac
 
@@ -78,7 +80,7 @@ setopt prompt_subst
 
 # prompt
 zsh_clock='%B%F{$zsh_color}[%*]%f'
-zsh_dir='%F{208}[%~]%f'
+zsh_dir='%F{$dir_color}[%~]%f'
 
 PROMPT='$zsh_clock%F{$git_color}${vcs_info_msg_0_}%f$zsh_dir
 %F{$zsh_color}>%f%b '
