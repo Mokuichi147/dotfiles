@@ -5,6 +5,8 @@ eval "$(pyenv init --path)"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+export CC="aarch64-linux-gnu-gcc"
+export CXX="aarch64-linux-gnu-g++"
 
 # alias
 alias ..='cd ..'
