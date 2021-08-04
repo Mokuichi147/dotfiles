@@ -1,0 +1,13 @@
+# Setting
+set autoindent
+set boldtext
+set linenumbers
+set mouse
+set nohelp
+set nonewlines
+set tabsize 4
+set tabstospaces
+
+# Color
+set numbercolor white,normal
+set titlecolor white,normal
