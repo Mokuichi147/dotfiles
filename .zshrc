@@ -53,7 +53,6 @@ case $zsh_hostname in
     ;;
     DESKTOP*)
     zsh_color=99
-    git_color=220
     export PATH="$HOME/Documents/swift-5.2.4-RELEASE-ubuntu20.04/usr/bin:$PATH"
     ;;
     *)
