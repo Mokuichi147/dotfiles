@@ -1,17 +1,16 @@
 #!/bin/sh
 
+sudo apt-get update
+sudo apt-get upgrade
+
 # zsh shell
-echo "$password" | sudo -S apt install -y zsh
+sudo apt-get install -y zsh tmux git
 chsh -s $(which zsh)
 
 
-# zshrc & tmux.conf
-curl -sSf -o ~/dotfiles/.zshrc https://raw.githubusercontent.com/Mokuichi147/dotfiles/main/.zshrc
-curl -sSf -o ~/dotfiles/.tmux.conf https://raw.githubusercontent.com/Mokuichi147/dotfiles/main/.tmux.conf
-curl -sSf -o ~/dotfiles/.nanorc https://raw.githubusercontent.com/Mokuichi147/dotfiles/main/.nanorc
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
-ln -sf ~/dotfiles/.nanorc ~/.nanorc
+# dotfiles
+git clone https://github.com/Mokuichi147/dotfiles ~/dotfiles
+sh ~/dotfiles/dotfilelink.sh
 
 
 # Python (Pyenv)
