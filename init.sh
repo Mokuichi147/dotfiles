@@ -3,9 +3,14 @@
 sudo apt-get update
 sudo apt-get upgrade
 
-# zsh shell
+
+# zsh etc...
 sudo apt-get install -y zsh tmux git
 chsh -s $(which zsh)
+
+
+# nano
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 
 # dotfiles
