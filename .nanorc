@@ -10,7 +10,9 @@ set tabstospaces
 
 # Color
 set numbercolor white,normal
-set titlecolor white,normalinclude "~/.nano/apacheconf.nanorc"
+set titlecolor white,normal
+
+include "~/.nano/apacheconf.nanorc"
 include "~/.nano/arduino.nanorc"
 include "~/.nano/asciidoc.nanorc"
 include "~/.nano/asm.nanorc"
