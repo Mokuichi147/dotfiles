@@ -9,6 +9,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 #export CC="aarch64-linux-gnu-gcc"
 #export CXX="aarch64-linux-gnu-g++"
 
+# Node
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
 # alias
 alias ..='cd ..'
 alias py='python'
