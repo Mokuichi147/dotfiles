@@ -17,3 +17,10 @@
 ```
 curl -sf https://raw.githubusercontent.com/Mokuichi147/dotfiles/main/init.sh | sh
 ```
+
+
+## Memo
+
+```
+chsh -s $(which zsh)
+```
