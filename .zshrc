@@ -53,7 +53,9 @@ case $zsh_hostname in
     # Blender
     alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
     # FFmpeg
-    alias ffmpeg='/Users/mokuichi147/Documents/ffmpeg'
+    #alias ffmpeg='$HOME/Documents/ffmpeg'
+    # opus-tools
+    export PATH="$HOME/Documents/opus-tools-0.1.9-macos:$PATH"
     # OpenCVSharp
     #export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/Users/mokuichi147/github/opencvsharp/src/OpenCvSharpExtern"
     ;;
