@@ -16,6 +16,14 @@ sudo apt-get update
 sudo apt-get install -y strongswan
 
 
+# Preparing for backup
+mkdir ~/vpntmp
+sudo cp -r /etc/ipsec.d ~/vpntemp
+sudo cp /etc/ipsec.conf ~/vpntemp
+sudo cp /etc/ipsec.secrets ~/vpntemp
+chmod 700 ~/vpntemp
+
+
 # Private key for CA
 ipsec pki --gen --type rsa --size 4096 --outform pem > /etc/ipsec.d/private/ca-key.pem
 ipsec pki --self --ca --lifetime 3650 --in /etc/ipsec.d/private/ca-key.pem --type rsa --dn "CN=$2" --outform pem > /etc/ipsec.d/cacerts/ca-cert.pem
