@@ -58,7 +58,7 @@ openssl pkcs12 -export -inkey /etc/ipsec.d/private/client-key.pem \
 
 
 # ipsec.conf
-echo "\
+echo '\
 # ipsec.conf - strongSwan IPsec configuration file
 config setup
     charondebug="cfg 2, dmn 2, ike 2, net 2"
@@ -109,7 +109,7 @@ conn CiscoIPSec
     # forceencaps=yes
     rightauth=pubkey
     rightauth2=xauth
-    auto=add" | sudo tee /etc/ipsec.conf
+    auto=add' | sudo tee /etc/ipsec.conf
 
 
 # ipsec.secrets
