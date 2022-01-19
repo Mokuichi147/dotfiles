@@ -21,7 +21,7 @@ mkdir ~/vpntmp
 sudo cp -r /etc/ipsec.d ~/vpntemp
 sudo cp /etc/ipsec.conf ~/vpntemp
 sudo cp /etc/ipsec.secrets ~/vpntemp
-chmod 700 ~/vpntemp
+chmod 600 ~/vpntemp
 
 
 # Private key for CA
@@ -58,3 +58,62 @@ openssl pkcs12 -export -inkey /etc/ipsec.d/private/client-key.pem \
 
 
 # ipsec.conf
+echo "\
+# ipsec.conf - strongSwan IPsec configuration file
+config setup
+    charondebug="cfg 2, dmn 2, ike 2, net 2"
+
+# Default configuration options, used below if an option is not specified.
+# See: https://wiki.strongswan.org/projects/strongswan/wiki/ConnSection
+conn %default
+
+    # Use IKEv2 by default
+    keyexchange=ikev2
+
+    # Prefer modern cipher suites that allow PFS (Perfect Forward Secrecy)
+    ike=aes128-sha256-ecp256,aes256-sha384-ecp384,aes128-sha256-modp2048,aes128-sha1-modp2048,aes256-sha384-modp4096,aes256-sha256-modp4096,aes256-sha1-modp4096,aes128-sha256-modp1536,aes128-sha1-modp1536,aes256-sha384-modp2048,aes256-sha256-modp2048,aes256-sha1-modp2048,aes128-sha256-modp1024,aes128-sha1-modp1024,aes256-sha384-modp1536,aes256-sha256-modp1536,aes256-sha1-modp1536,aes256-sha384-modp1024,aes256-sha256-modp1024,aes256-sha1-modp1024!
+    esp=aes128gcm16-ecp256,aes256gcm16-ecp384,aes128-sha256-ecp256,aes256-sha384-ecp384,aes128-sha256-modp2048,aes128-sha1-modp2048,aes256-sha384-modp4096,aes256-sha256-modp4096,aes256-sha1-modp4096,aes128-sha256-modp1536,aes128-sha1-modp1536,aes256-sha384-modp2048,aes256-sha256-modp2048,aes256-sha1-modp2048,aes128-sha256-modp1024,aes128-sha1-modp1024,aes256-sha384-modp1536,aes256-sha256-modp1536,aes256-sha1-modp1536,aes256-sha384-modp1024,aes256-sha256-modp1024,aes256-sha1-modp1024,aes128gcm16,aes256gcm16,aes128-sha256,aes128-sha1,aes256-sha384,aes256-sha256,aes256-sha1!
+
+    # Dead Peer Discovery
+    dpdaction=clear
+    dpddelay=300s
+
+    # Do not renegotiate a connection if it is about to expire
+    rekey=no
+
+    # Server side
+    left=%any
+    leftsubnet=0.0.0.0/0
+    leftcert=server-cert.pem
+
+    # Client side
+    right=%any
+    rightdns=8.8.8.8,8.8.4.4
+    rightsourceip=%dhcp
+
+# IKEv2: Newer version of the IKE protocol
+conn IPSec-IKEv2
+    keyexchange=ikev2
+    auto=add
+
+# IKEv2-EAP
+conn IPSec-IKEv2-EAP
+    also="IPSec-IKEv2"
+    rightauth=eap-mschapv2
+    rightsendcert=never
+    eap_identity=%any
+
+# IKEv1 (Cisco-compatible version)
+conn CiscoIPSec
+    keyexchange=ikev1
+    # forceencaps=yes
+    rightauth=pubkey
+    rightauth2=xauth
+    auto=add" | sudo tee /etc/ipsec.conf
+
+
+# ipsec.secrets
+read -sp "VPN Password: " pass
+echo '\
+: RSA "server-key.pem"
+$1 : EAP "$pass"' | sudo tee /etc/ipsec.secrets
