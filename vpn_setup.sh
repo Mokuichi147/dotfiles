@@ -73,10 +73,13 @@ else
     :
 fi
 
+read -s "PASS? VPN Password: "
+
+
 openssl pkcs12 -export -inkey ~/pki/private/client-key.pem \
     -in ~/pki/certs/client-cert.pem -name "$1 VPN client certificate" \
     -certfile ~/pki/certs/server-cert.pem \
-    -passin pass:"" -passout pass:"" \
+    -passin pass:$PASS -passout pass:$PASS \
     -caname "Root CA" -out ~/pki/client.p12
 
 
@@ -135,7 +138,6 @@ conn CiscoIPSec
 
 
 # ipsec.secrets
-read -s "PASS?VPN Password: "
 echo ': RSA "server-key.pem"
 '$1' : EAP "'$PASS'"' | sudo tee /etc/ipsec.secrets > /dev/null
 echo ""
@@ -143,6 +145,7 @@ echo ""
 
 # port
 sudo ufw allow 500,4500/udp
+sudo ufw allow 50
 sudo ufw reload
 
 
