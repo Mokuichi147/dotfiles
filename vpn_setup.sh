@@ -29,7 +29,7 @@ fi
 
 # work dir
 if [ ! -e ~/pki ]; then
-    mkdir -p ~/pki/{cacerts,certs,private}
+    mkdir -p ~/pki/cacerts ~/pki/certs ~/pki/private
     sudo chmod 700 ~/pki
 else
     :
@@ -44,29 +44,30 @@ ipsec pki --self --ca --lifetime 3650 --in ~/pki/private/ca-key.pem --type rsa -
 # Creating a server certificate
 ipsec pki --gen --type rsa --size 4096 --outform pem > ~/pki/private/server-key.pem
 
-sudo ipsec pki --pub --in ~/pki/private/server-key.pem --type rsa \
+ipsec pki --pub --in ~/pki/private/server-key.pem --type rsa \
     | ipsec pki --issue --lifetime 3650 \
     --cacert ~/pki/cacerts/ca-cert.pem \
     --cakey ~/pki/private/ca-key.pem \
     --dn "CN=$2" --san "$2" \
-    --flag serverAuth --flag ikeIntermediate --outform pem ~/pki/certs/server-cert.pem
-
-
-sudo cp -r ~/pki/* /etc/ipsec.d/
+    --flag serverAuth --flag ikeIntermediate --outform pem > ~/pki/certs/server-cert.pem
 
 
 # Creating a client certificate
 ipsec pki --gen --type rsa --size 4096 --outform pem > ~/pki/private/client-key.pem
 sudo chmod 600 ~/pki/private/client-key.pem
 
-sudo ipsec pki --pub --in ~/pki/private/client-key.pem --type rsa \
+ipsec pki --pub --in ~/pki/private/client-key.pem --type rsa \
     | ipsec pki --issue --lifetime 3650 \
     --cacert ~/pki/cacerts/ca-cert.pem \
     --cakey ~/pki/private/ca-key.pem \
     --dn "CN=$1@$2" --san "$1@$2" \
-    --outform pem ~/pki/certs/client-cert.pem
+    --outform pem > ~/pki/certs/client-cert.pem
 
-sudo openssl pkcs12 -export -inkey ~/pki/private/client-key.pem \
+
+sudo cp -r ~/pki/* /etc/ipsec.d/
+
+
+openssl pkcs12 -export -inkey ~/pki/private/client-key.pem \
     -in ~/pki/certs/client-cert.pem -name "$1 VPN client certificate" \
     -certfile ~/pki/certs/server-cert.pem \
     -caname "Root CA" -out ~/pki/client.p12
