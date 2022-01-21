@@ -1,18 +1,18 @@
-#!/bin/sh
+#!/bin/zsh
 
 if [ $# -ne 2 ]; then
     echo "Usage: sh vpn_setup.sh <CN:user> <CN:DNS>"
     exit 1
 fi
 
-echo "CN=$1@$2"
+echo "CN=$1@$2\n"
 
 
-sudo apt-get update
+sudo apt-get update > /dev/null
 
 
 # install
-sudo apt-get install -y strongswan strongswan-pki strongswan-starter
+sudo apt-get install -y strongswan strongswan-pki strongswan-starter > /dev/null
 
 
 # Preparing for backup
@@ -67,9 +67,16 @@ ipsec pki --pub --in ~/pki/private/client-key.pem --type rsa \
 sudo cp -r ~/pki/* /etc/ipsec.d/
 
 
+if [ ! -e ~/pki/client.p12 ]; then
+    sudo rm ~/pki/client.p12
+else
+    :
+fi
+
 openssl pkcs12 -export -inkey ~/pki/private/client-key.pem \
     -in ~/pki/certs/client-cert.pem -name "$1 VPN client certificate" \
     -certfile ~/pki/certs/server-cert.pem \
+    -passin pass:"" -passout pass:"" \
     -caname "Root CA" -out ~/pki/client.p12
 
 
@@ -124,13 +131,14 @@ conn CiscoIPSec
     # forceencaps=yes
     rightauth=pubkey
     rightauth2=xauth
-    auto=add' | sudo tee /etc/ipsec.conf
+    auto=add' | sudo tee /etc/ipsec.conf > /dev/null
 
 
 # ipsec.secrets
-read -p "VPN Password: " pass
+read -s "PASS?VPN Password: "
 echo ': RSA "server-key.pem"
-'$1' : EAP "'$pass'"' | sudo tee /etc/ipsec.secrets
+'$1' : EAP "'$PASS'"' | sudo tee /etc/ipsec.secrets > /dev/null
+echo ""
 
 
 # port
