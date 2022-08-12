@@ -5,7 +5,7 @@ sudo apt-get upgrade
 
 
 # zsh etc...
-sudo apt-get install -y zsh tmux git
+sudo apt-get install -y zsh tmux git gcc
 chsh -s $(which zsh)
 
 
