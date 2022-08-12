@@ -10,5 +10,9 @@ unzip ~/commandlinetools-linux-8512546_latest.zip -d ~/cmdline-tools/latest
 mv ~/cmdline-tools/latest/cmdline-tools/* ~/cmdline-tools/latest/
 sudo rm -R ~/cmdline-tools/latest/cmdline-tools
 
-# path
+# Path
 # export PATH="$HOME/cmdline-tools/latest/bin:$PATH"
+
+# Install
+#sdkmanager install ndk-bundle
+# ls ~/ndk-bundle
