@@ -13,6 +13,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
+# Android SDK
+export PATH="$HOME/cmdline-tools/latest/bin:$PATH"
+
 # Wasmer
 export WASMER_DIR="$HOME/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
