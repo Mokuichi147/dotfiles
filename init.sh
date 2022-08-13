@@ -5,7 +5,7 @@ sudo apt-get upgrade
 
 
 # zsh etc...
-sudo apt-get install -y zsh tmux git gcc unzip
+sudo apt-get install -y zsh tmux git gcc g++ unzip
 chsh -s $(which zsh)
 
 
