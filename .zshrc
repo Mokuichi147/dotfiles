@@ -118,8 +118,8 @@ precmd() { vcs_info }
 setopt prompt_subst
 
 # prompt
-zsh_clock='%B%F{$zsh_color}%*, %f'
-zsh_dir='%F{$dir_color}%~%f'
+#zsh_clock='%B%F{$zsh_color}%*, %f'
+#zsh_dir='%F{$dir_color}%~%f'
 
-PROMPT='$zsh_clock%F{$git_color}${vcs_info_msg_0_}%f$zsh_dir
+PROMPT='%B%F{$zsh_color}%*, %f%F{$git_color}${vcs_info_msg_0_}%f%F{$dir_color}%~%f
 %F{$zsh_color}>%f%b '
