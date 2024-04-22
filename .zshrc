@@ -6,7 +6,14 @@ eval "$(pyenv init --path)"
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# C#
+export PATH="/usr/local/share/dotnet:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
+export DOTNET_CLI_TELEMETRY_OPTOUT="true"
+export DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT="true"
+
 # Node
+export PATH="$HOME/.nodebrew/current/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
