@@ -98,6 +98,15 @@ case $zsh_hostname in
     ;;
 esac
 
+# pass
+ZSH_DIR="$HOME/dotfiles/privates"
+
+if [ -d $ZSH_DIR ] && [ -r $ZSH_DIR ] && [ -x $ZSH_DIR ]; then
+    for file in ${ZSH_DIR}/**/*.zsh; do
+        [ -r $file ] && source $file
+    done
+fi
+
 # zsh log
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000
