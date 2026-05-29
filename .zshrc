@@ -15,15 +15,6 @@ export PATH="$HOME/.nodebrew/current/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# Android SDK
-export PATH="$HOME/cmdline-tools/latest/bin:$PATH"
-export NDK="$HOME/ndk-bundle"
-export TOOLCHAIN="$NDK/toolchains/llvm/prebuilt/linux-x86_64"
-export PATH="$TOOLCHAIN/bin:$PATH"
-export TARGET="aarch64-linux-android"
-export API="21"
-export ANDROID_NDK_HOME="$NDK"
-
 # openssl
 #export OPENSSL_DIR="$HOME/openssl-1.1.1q"
 export OPENSSL_DIR="/usr/local"
