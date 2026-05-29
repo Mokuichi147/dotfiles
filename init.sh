@@ -18,10 +18,9 @@ git clone https://github.com/Mokuichi147/dotfiles ~/dotfiles
 sh ~/dotfiles/dotfilelink.sh
 
 
-# Python (Pyenv)
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
+# Python (uv)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 
 # Rust
-curl https://sh.rustup.rs -sSf | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

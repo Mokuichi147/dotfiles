@@ -1,7 +1,5 @@
-# Python
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+# Python (uv)
+export PATH="$HOME/.local/bin:$PATH"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -37,7 +35,7 @@ export WASMER_DIR="$HOME/.wasmer"
 
 # alias
 alias ..='cd ..'
-alias py='python'
+alias py='uv run python'
 alias hello='figlet Hello\ world!'
 alias zshrc='nano ~/.zshrc'
 alias f='find ~/.zsh_history -type f -print | xargs grep'
