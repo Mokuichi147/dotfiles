@@ -53,18 +53,8 @@ case $zsh_hostname in
     git_color=092
     export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
     export PATH="$HOME/.nodebrew/current/bin:$PATH"
-    # Java
-    export JAVA_HOME="/usr/local/Cellar/openjdk/16.0.1/bin"
-    # Flutter
-    export PATH="$HOME/Documents/flutter/bin:$PATH"
-    # Blender
-    alias blender='/Applications/Blender.app/Contents/MacOS/Blender'
     # FFmpeg
     #alias ffmpeg='$HOME/Documents/ffmpeg'
-    # opus-tools
-    export PATH="$HOME/Documents/opus-tools-0.1.9-macos:$PATH"
-    # OpenCVSharp
-    #export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/Users/mokuichi147/github/opencvsharp/src/OpenCvSharpExtern"
     ;;
     mokuichi147-thinkcentre)
     zsh_color=30
@@ -80,7 +70,6 @@ case $zsh_hostname in
     ;;
     DESKTOP*)
     zsh_color=99
-    export PATH="$HOME/Documents/swift-5.2.4-RELEASE-ubuntu20.04/usr/bin:$PATH"
     ;;
     *)
     zsh_color=27
