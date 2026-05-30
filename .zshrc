@@ -10,16 +10,6 @@ export PATH="$HOME/.dotnet/tools:$PATH"
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 export DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT="true"
 
-# Node
-export PATH="$HOME/.nodebrew/current/bin:$PATH"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
-# openssl
-#export OPENSSL_DIR="$HOME/openssl-1.1.1q"
-export OPENSSL_DIR="/usr/local"
-export CMAKE_CXX_COMPILER="/usr/bin/cmake"
-
 # Wasmer
 export WASMER_DIR="$HOME/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
@@ -31,11 +21,23 @@ alias hello='figlet Hello\ world!'
 alias zshrc='nano ~/.zshrc'
 alias f='find ~/.zsh_history -type f -print | xargs grep'
 alias g='find / -executable -type f -name'
+alias tmux='tmux -u'
 
 # OS
 case ${OSTYPE} in
     darwin*)
     alias ls='ls -G'
+    # PostgreSQL
+    export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+    # OpenSSL
+    export OPENSSL_DIR="/opt/homebrew/opt/openssl@3"
+    # Java
+    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+    # Node
+    export PATH="$HOME/.nodebrew/current/bin:$PATH"
+    export VOLTA_HOME="$HOME/.volta"
+    export PATH="$VOLTA_HOME/bin:$PATH"
+    . "$HOME/.deno/env"
     ;;
     linux*)
     alias ls='ls --color'
@@ -75,11 +77,11 @@ dir_color=$device_color
 
 # デバイス固有の環境設定
 case $zsh_hostname in
-    Mokuichi147-MacBook)
-    export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
-    export PATH="$HOME/.nodebrew/current/bin:$PATH"
+    mokuichi147-MacBookAir)
+    # LM Studio
+    export PATH="$HOME/.lmstudio/bin:$PATH"
     # FFmpeg
-    #alias ffmpeg='$HOME/Documents/ffmpeg'
+    export PATH="$HOME/Documents/ffmpeg/out/bin:$PATH"
     ;;
 esac
 
@@ -117,10 +119,6 @@ zstyle ':vcs_info:*' formats '%b, '
 zstyle ':vcs_info:*' actionformats '%b|%a, '
 precmd() { vcs_info }
 setopt prompt_subst
-
-# prompt
-#zsh_clock='%B%F{$zsh_color}%*, %f'
-#zsh_dir='%F{$dir_color}%~%f'
 
 PROMPT='%B%F{$zsh_color}%*, %f%F{$git_color}${vcs_info_msg_0_}%f%F{$dir_color}%~%f
 %F{$zsh_color}>%f%b '
