@@ -44,35 +44,48 @@ case ${OSTYPE} in
 esac
 
 # host
-git_color=69
-dir_color=147
 zsh_hostname=$(hostname|cut -f 1 -d '.')
+
+# ホスト名から決定論的に色を生成（成分2〜5、第2引数以降の色は避ける）
+device_color() {
+    local key=$1; shift
+    local avoid=("$@") salt=0 color
+    while :; do
+        local hash=$(printf '%s' "${key}:${salt}" | cksum | cut -d ' ' -f 1)
+        local r=$(( 2 + (hash)       % 4 ))
+        local g=$(( 2 + (hash / 4)   % 4 ))
+        local b=$(( 2 + (hash / 16)  % 4 ))
+        color=$(( 16 + 36 * r + 6 * g + b ))
+        [[ ${avoid[(r)$color]} != $color ]] && break
+        (( salt++ ))
+    done
+    print $color
+}
+
+# 色を固定したいデバイスのみ "zsh git dir" で指定（任意）
+typeset -A color_overrides
+color_overrides=(
+    Mokuichi147-MacBook "197 92 147"
+)
+
+if [[ -n ${color_overrides[$zsh_hostname]} ]]; then
+    color_set=(${=color_overrides[$zsh_hostname]})
+    zsh_color=$color_set[1]
+    git_color=$color_set[2]
+    dir_color=$color_set[3]
+else
+    zsh_color=$(device_color "$zsh_hostname")
+    git_color=$(device_color "${zsh_hostname}:git" $zsh_color)
+    dir_color=$(device_color "${zsh_hostname}:dir" $zsh_color $git_color)
+fi
+
+# デバイス固有の環境設定
 case $zsh_hostname in
     Mokuichi147-MacBook)
-    zsh_color=197
-    git_color=092
     export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
     export PATH="$HOME/.nodebrew/current/bin:$PATH"
     # FFmpeg
     #alias ffmpeg='$HOME/Documents/ffmpeg'
-    ;;
-    mokuichi147-thinkcentre)
-    zsh_color=30
-    ;;
-    DESK-Pi)
-    zsh_color=6
-    ;;
-    REI-W)
-    zsh_color=23
-    ;;
-    REI-WK)
-    zsh_color=169
-    ;;
-    DESKTOP*)
-    zsh_color=99
-    ;;
-    *)
-    zsh_color=27
     ;;
 esac
 
