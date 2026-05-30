@@ -46,38 +46,32 @@ esac
 # host
 zsh_hostname=$(hostname|cut -f 1 -d '.')
 
-# ホスト名から決定論的に色を生成（成分2〜5、第2引数以降の色は避ける）
+# ホスト名から決定論的に色を生成（成分2〜5）
 device_color() {
-    local key=$1; shift
-    local avoid=("$@") salt=0 color
-    while :; do
-        local hash=$(printf '%s' "${key}:${salt}" | cksum | cut -d ' ' -f 1)
-        local r=$(( 2 + (hash)       % 4 ))
-        local g=$(( 2 + (hash / 4)   % 4 ))
-        local b=$(( 2 + (hash / 16)  % 4 ))
-        color=$(( 16 + 36 * r + 6 * g + b ))
-        [[ ${avoid[(r)$color]} != $color ]] && break
-        (( salt++ ))
-    done
-    print $color
+    local key=$1
+    local hash=$(printf '%s' "$key" | cksum | cut -d ' ' -f 1)
+    local r=$(( 2 + (hash)       % 4 ))
+    local g=$(( 2 + (hash / 4)   % 4 ))
+    local b=$(( 2 + (hash / 16)  % 4 ))
+    print $(( 16 + 36 * r + 6 * g + b ))
 }
 
-# 色を固定したいデバイスのみ "zsh git dir" で指定（任意）
+# 色を固定したいデバイスのみ指定（任意）
 typeset -A color_overrides
 color_overrides=(
-    Mokuichi147-MacBook "197 92 147"
+    Mokuichi147-MacBook "197"
 )
 
 if [[ -n ${color_overrides[$zsh_hostname]} ]]; then
-    color_set=(${=color_overrides[$zsh_hostname]})
-    zsh_color=$color_set[1]
-    git_color=$color_set[2]
-    dir_color=$color_set[3]
+    device_color=${color_overrides[$zsh_hostname]}
 else
-    zsh_color=$(device_color "$zsh_hostname")
-    git_color=$(device_color "${zsh_hostname}:git" $zsh_color)
-    dir_color=$(device_color "${zsh_hostname}:dir" $zsh_color $git_color)
+    device_color=$(device_color "$zsh_hostname")
 fi
+
+# zsh・git・dir はすべて同じ色を使う
+zsh_color=$device_color
+git_color=$device_color
+dir_color=$device_color
 
 # デバイス固有の環境設定
 case $zsh_hostname in
