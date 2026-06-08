@@ -106,6 +106,37 @@ setopt share_history
 setopt auto_cd
 setopt correct
 
+# 補完
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select                        # 矢印キーで補完候補を選択
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # 大文字小文字を区別しない
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}     # 補完候補に色付け
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' group-name ''                      # 種類ごとにグループ表示
+zstyle ':completion:*:descriptions' format '%B%F{'$zsh_color'}%d%f%b'
+setopt auto_menu                                          # Tab連打で候補を順に選択
+setopt auto_param_slash                                   # ディレクトリ補完で末尾に / を付与
+setopt list_packed                                        # 補完候補をコンパクトに表示
+setopt complete_in_word                                   # カーソル位置で補完
+
+# zsh-autosuggestions (入力途中に補完表示)
+zsh_autosuggest_paths=(
+    /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh             # Debian/Ubuntu (apt)
+    /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh # Arch 等
+)
+
+if (( $+commands[brew] )); then
+    zsh_autosuggest_paths=(
+        "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+        $zsh_autosuggest_paths
+    )
+fi
+for f in $zsh_autosuggest_paths; do
+    [ -r "$f" ] && source "$f" && break
+done
+unset zsh_autosuggest_paths f
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'                         # 補完の文字色（薄いグレー）
+
 # chpwd
 function show_directory() {
     ls -a

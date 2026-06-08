@@ -1,11 +1,20 @@
 #!/bin/sh
 
-sudo apt-get update
-sudo apt-get upgrade
+case "$(uname)" in
+    Darwin)
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew update
+    brew upgrade
+    brew install git tmux zsh-autosuggestions
+    ;;
+    Linux)
+    sudo apt-get update
+    sudo apt-get upgrade
+    sudo apt-get install -y zsh tmux git gcc g++ unzip zsh-autosuggestions
+    chsh -s $(which zsh)
+    ;;
+esac
 
-
-# zsh etc...
-sudo apt-get install -y zsh tmux git gcc g++ unzip
 chsh -s $(which zsh)
 
 
