@@ -2,7 +2,9 @@
 
 case "$(uname)" in
     Darwin)
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if ! command -v brew >/dev/null 2>&1; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
     brew update
     brew upgrade
     brew install git tmux zsh-autosuggestions
@@ -15,21 +17,36 @@ case "$(uname)" in
     ;;
 esac
 
-chsh -s $(which zsh)
-
 
 # nano
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 
 # dotfiles
-git clone https://github.com/Mokuichi147/dotfiles ~/dotfiles
+if [ -d ~/dotfiles ]; then
+    stashed=$(git -C ~/dotfiles stash)
+    git -C ~/dotfiles pull
+    case "$stashed" in
+        *"No local changes"*) ;;
+        *) git -C ~/dotfiles stash pop ;;
+    esac
+else
+    git clone https://github.com/Mokuichi147/dotfiles ~/dotfiles
+fi
 sh ~/dotfiles/dotfilelink.sh
 
 
 # Python (uv)
-curl -LsSf https://astral.sh/uv/install.sh | sh
+if command -v uv >/dev/null 2>&1; then
+    uv self update
+else
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
 
 
 # Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+if command -v rustup >/dev/null 2>&1; then
+    rustup update
+else
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
