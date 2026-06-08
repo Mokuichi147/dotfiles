@@ -61,7 +61,7 @@ device_color() {
 # 色を固定したいデバイスのみ指定（任意）
 typeset -A color_overrides
 color_overrides=(
-    Mokuichi147-MacBook "197"
+    mokuichi147-MacBookAir "147"
 )
 
 if [[ -n ${color_overrides[$zsh_hostname]} ]]; then
